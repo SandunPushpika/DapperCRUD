@@ -10,16 +10,11 @@ namespace DapperServices {
         }
 
         public async Task<Todo> AddNewTodo(Todo todo) {
-            String query = "Insert into Todos (Title,Description,UserId) VALUES (@title,@description,@userid)" +
+            String query = "Insert into Todos (Title,Description,UserId) VALUES (@Title,@Description,@UserId)" +
                 "SELECT CAST(SCOPE_IDENTITY() as int)";
 
-            var parameters = new DynamicParameters();
-            parameters.Add("title", todo.Title);
-            parameters.Add("description", todo.Description);
-            parameters.Add("userid", todo.UserId);
-
             using (var con = _context.createConnection()) {
-                int id = await con.QuerySingleAsync<int>(query,parameters);
+                int id = await con.QuerySingleAsync<int>(query,todo);
                 todo.Id = id;
 
                 return todo;
@@ -51,14 +46,10 @@ namespace DapperServices {
 
             string query = "UPDATE todos SET Title=@title, Description=@description, UserId=@userid where Id=@id";
 
-            var parameters = new DynamicParameters();
-            parameters.Add("title", todo.Title);
-            parameters.Add("description", todo.Description);
-            parameters.Add("userid", todo.UserId);
-            parameters.Add("id", id);
+            todo.Id = id;
 
             using (var con = _context.createConnection()) {
-                await con.ExecuteAsync(query, parameters);
+                await con.ExecuteAsync(query, todo);
             }
         }
     }

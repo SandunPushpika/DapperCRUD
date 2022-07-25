@@ -19,7 +19,7 @@ namespace DapperCRUD.Controllers {
         [HttpPost]
         public async Task<IActionResult> AddNewTodo(Todo todo) {
             var created_todo = await _service.AddNewTodo(todo);
-            return CreatedAtRoute("/createdtodo", created_todo.Id, created_todo);
+            return Created("createdtodo", created_todo);
         }
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteTodo(int id) { 
