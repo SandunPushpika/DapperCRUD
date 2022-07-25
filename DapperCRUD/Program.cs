@@ -1,5 +1,6 @@
 using DapperDataAccess;
-using DapperServices;
+using DapperServices.DbServices;
+using DapperServices.TodoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<DbContext>();
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+builder.Services.AddScoped<IDbService, DbService>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

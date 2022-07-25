@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DapperServices {
+namespace DapperServices.TodoServices {
     public interface ITodoRepository {
         public Task<Todo> AddNewTodo(Todo todo);
         public Task UpdateTodo(int id, Todo todo);
@@ -13,5 +13,5 @@ namespace DapperServices {
         public Task<Todo> GetTodoById(int id);
         public Task DeleteTodo(int id);
     }
-    
+
 }
